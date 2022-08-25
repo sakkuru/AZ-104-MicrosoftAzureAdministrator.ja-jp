@@ -1,7 +1,7 @@
 ---
 lab:
-title: 04 - 仮想ネットワークを実装する
-module: Module 04 - Virtual Networking
+  title: 04 - 仮想ネットワークを実装する
+  module: Module 04 - Virtual Networking
 ms.openlocfilehash: 383f88f2dddb48d498efb3d868330e4bba15c92b
 ms.sourcegitcommit: be14e4ff5bc638e8aee13ec4b8be29525d404028
 ms.translationtype: HT
@@ -9,6 +9,7 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 05/11/2022
 ms.locfileid: "144937829"
 ---
+
 # <a name="lab-04---implement-virtual-networking"></a>ラボ 04 - 仮想ネットワークを実装する
 
 # 受講生用ラボ マニュアル
