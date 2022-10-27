@@ -1,20 +1,17 @@
 ---
 lab:
   title: 09c - Azure Kubernetes Service を実装する
-  module: Module 09 - Serverless Computing
-ms.openlocfilehash: 42e43fa916e61988df87b3188fba59ab7b57652e
-ms.sourcegitcommit: dd61587ee547d5efa09ad0a63c0b2af272ee1e55
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 03/31/2022
-ms.locfileid: "141280826"
+  module: Administer Serverless Computing
 ---
+
 # <a name="lab-09c---implement-azure-kubernetes-service"></a>ラボ 09c - Azure Kubernetes Service を実装する
 # <a name="student-lab-manual"></a>受講生用ラボ マニュアル
 
 ## <a name="lab-scenario"></a>ラボのシナリオ
 
 Contoso には、Azure Container Instances を使用して実行するのに適していない多層アプリケーションが多数あります。 コンテナー化されたワークロードとして実行できるかどうかを判断するには、Kubernetes をコンテナー オーケストレーターとして使用して評価します。 管理オーバーヘッドをさらに最小限に抑えるには、簡単なデプロイ エクスペリエンスやスケーリング機能などを含めた Azure Kubernetes Service をテストします。
+
+                **メモ:** このラボをご自分のペースでクリックして進めることができる、 **[ラボの対話型シミュレーション](https://mslabs.cloudguides.com/guides/AZ-104%20Exam%20Guide%20-%20Microsoft%20Azure%20Administrator%20Exercise%2015)** が用意されています。 対話型シミュレーションとホストされたラボの間に若干の違いがある場合がありますが、示されている主要な概念とアイデアは同じです。 
 
 ## <a name="objectives"></a>目標
 
@@ -45,9 +42,9 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 
 1. **Bash** または **PowerShell** の選択を求めるメッセージが表示されたら、 **[PowerShell]** を選択します。
 
-    >**注**:**Cloud Shell** の初回起動時に **「ストレージがマウントされていません」** というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、 **「ストレージの作成」** を選択します。
+    >**注**: **Cloud Shell** の初回起動時に "**ストレージがマウントされていません**" というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、**[ストレージの作成]** を選択します。
 
-1. 「Cloud Shell」ウィンドウから、次のコマンドを実行して、Microsoft.Kubernetes および Microsoft.KubernetesConfiguration リソース プロバイダーを登録します。
+1. [Cloud Shell] ペインから、次のコマンドを実行して、Microsoft.Kubernetes と Microsoft.KubernetesConfiguration のリソース プロバイダーを登録します。
 
    ```powershell
    Register-AzResourceProvider -ProviderNamespace Microsoft.Kubernetes
@@ -61,18 +58,20 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 
 このタスクでは、Azure portal を使用して Azure Kubernetes Service クラスターをデプロイします。
 
-1. Azure portal で、「**Kubernetes サービス**」を検索してから、「**Kubernetes サービス**」ブレードで「 **+ 作成**」をクリックし、「 **+ Kubernetes クラスターの作成**」をクリックします。
+1. Azure portal で、**[Kubernetes サービス]** を検索してから、**[Kubernetes サービス]** ブレードで **[作成]** をクリックし、**[Kubernetes クラスターの作成]** をクリックします。
 
-1. **「Kubernetes クラスターの作成」** ブレードの **「基本」** タブで、次の設定を指定します (他の設定は既定値のままにします)。
+1. **[Kubernetes クラスターの作成]** ブレードの **[基本]** タブで、次の設定を指定します (他の設定は既定値のままにします)。
 
     | 設定 | 値 |
     | ---- | ---- |
     | サブスクリプション | このラボで使用している Azure サブスクリプションの名前 |
     | リソース グループ | 新しいリソース グループ **az104-09c-rg1** の名前 |
+    | クラスターのプリセット構成 | **Dev/Test ($)** |
     | Kubernetes クラスター名 | **az104-9c-aks1** |
     | リージョン | Kubernetes クラスターをプロビジョニングできるリージョンの名前 |
     | 可用性ゾーン | **なし** (すべてのチェックボックスをオフにする) |
     | Kubernetes バージョン | 既定値を受け入れる |
+    | API サーバーの可用性 | 既定値を受け入れる |
     | ノード サイズ | 既定値を受け入れる |
     | スケーリング方法 | **[手動]** |
     | ノード数 | **1** |
@@ -83,19 +82,19 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
     | ---- | ---- |
     | 仮想ノードを有効にする | **無効** (既定) |
 
-1. **[次へ: アクセス >]** をクリックし、 **[Kubernetes クラスターの作成]** ブレードの **[アクセス]** タブで、次の設定を指定します (その他の設定は既定値のままにします)。
+1. **[次へ: アクセス >]** をクリックし、 **[Kubernetes クラスターの作成]** ブレードの **[アクセス]** タブの設定は既定値のままにします。
 
     | 設定 | 値 |
     | ---- | ---- |
-    | 認証方法 | **システム割り当てマネージド ID** (既定値 - 変更なし) | 
-    | ロール ベースのアクセス制御 (RBAC) | **有効** |
+    | リソース ID | **システム割り当てマネージド ID** |
+    | 認証方法 | **Kubernetes RBAC を使用したローカル アカウント** |
 
 1. **[次へ: ネットワーク >]** をクリックし、 **[Kubernetes クラスターの作成]** ブレードの **[ネットワーク]** タブで、次の設定を指定します (その他の設定は既定値のままにします)。
 
     | 設定 | 値 |
     | ---- | ---- |
     | ネットワーク構成 | **kubenet** |
-    | DNS 名プレフィックス | 有効な、グローバルに一意の DNS ホスト名 |
+    | DNS 名プレフィックス | 有効な、グローバルに一意の DNS プレフィックス|
 
 1. **[次へ: 統合 >]** をクリックし、 **[Kubernetes クラスターの作成]** ブレードの **[統合]** タブで、 **[コンテナーの監視]** を **[無効]** に設定し、 **[確認および作成]** をクリックし、検証が成功したことを確認して、 **[作成]** をクリックします。
 
@@ -107,17 +106,17 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 
 このタスクでは、ポッドを Azure Kubernetes Service クラスターにデプロイします。
 
-1. デプロイ ブレードで、 **「リソースに移動」** リンクをクリックします。
+1. デプロイ ブレードで、**[リソースに移動]** リンクをクリックします。
 
-1. **「az104-9c-aks1** Kubernetes サービス」ブレードの **「設定」** セクションで、 **「ノード プール」** をクリックします。
+1. **[az104-9c-aks1** Kubernetes サービス] ブレードの **[設定]** セクションで、**[ノード プール]** をクリックします。
 
-1. **「az104-9c-aks1 - ノード プール」** ブレードで、クラスターが 1 つのノードを持つ単一プールで構成されていることを確認します。
+1. **[az104-9c-aks1 - ノード プール]** ブレードで、クラスターが 1 つのノードを持つ単一プールで構成されていることを確認します。
 
 1. Azure portal の右上にあるアイコンをクリックして **Azure Cloud Shell** を開きます。
 
 1. **Azure Cloud Shell** を **Bash** (黒の背景) に切り替えます。
 
-1. 「Cloud Shell」ウィンドウから、次のコマンドを実行して、AKS クラスターの資格情報を取得します。
+1. [Cloud Shell] ウィンドウから、次のコマンドを実行して、AKS クラスターにアクセスする資格情報を取得します。
 
     ```sh
     RESOURCE_GROUP='az104-09c-rg1'
@@ -133,7 +132,7 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
     kubectl get nodes
     ```
 
-1. **Cloud Shell** ウィンドウで出力を確認し、この時点でクラスターが構成する 1 つのノードが **準備完了** 状態を報告していることを確認します。
+1. **Cloud Shell** ウィンドウで出力を確認し、この時点でクラスターが構成する 1 つのノードが**準備完了**状態を報告していることを確認します。
 
 1. **Cloud Shell** ウィンドウから次のコマンドを実行して、Docker Hub から **nginx** イメージをデプロイします。
 
@@ -178,11 +177,6 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 1. **Cloud Shell** ウィンドウから次のコマンドを実行し、ポッドの数を 2 に増やしてデプロイをスケーリングします。
 
     ```sh
-
-    RESOURCE_GROUP='az104-09c-rg1'
-
-    AKS_CLUSTER='az104-9c-aks1'
-
     kubectl scale --replicas=2 deployment/nginx-deployment
     ```
 
@@ -197,6 +191,10 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 1. **Cloud Shell** ウィンドウから次のコマンドを実行し、ノード数を 2 に増やしてクラスターをスケールアウトします。
 
     ```sh
+    RESOURCE_GROUP='az104-09c-rg1'
+
+    AKS_CLUSTER='az104-9c-aks1'
+
     az aks scale --resource-group $RESOURCE_GROUP --name $AKS_CLUSTER --node-count 2
     ```
 
@@ -224,7 +222,7 @@ Contoso には、Azure Container Instances を使用して実行するのに適�
 
     > **注**:コマンドの出力を確認し、ポッドの数が 10 個に増加したことを確認します。
 
-1. **「Cloud Shell」** ウィンドウから次のコマンドを実行して、クラスター ノード間でのポッドの配分を確認します。
+1. **[Cloud Shell]** ウィンドウから次のコマンドを実行して、クラスター ノードにまたがるポッドの配分を確認します。
 
     ```sh
     kubectl get pod -o=custom-columns=NODE:.spec.nodeName,POD:.metadata.name
