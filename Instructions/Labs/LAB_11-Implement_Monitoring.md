@@ -1,14 +1,9 @@
 ---
 lab:
   title: 11 - 監視の実装
-  module: Module 11 - Monitoring
-ms.openlocfilehash: 10c3fe049aaf037892a34299c21dfd8213ce40b2
-ms.sourcegitcommit: be14e4ff5bc638e8aee13ec4b8be29525d404028
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 05/11/2022
-ms.locfileid: "144937819"
+  module: Administer Monitoring
 ---
+
 # <a name="lab-11---implement-monitoring"></a>ラボ 11 - 監視を実装する
 # <a name="student-lab-manual"></a>受講生用ラボ マニュアル
 
