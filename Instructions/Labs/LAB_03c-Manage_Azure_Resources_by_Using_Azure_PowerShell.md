@@ -1,20 +1,17 @@
 ---
 lab:
   title: 03c - Azure PowerShell を使用して Azure リソースを管理する
-  module: Module 03 - Azure Administration
-ms.openlocfilehash: 4210a06af5b873e1031e2224239dd8738e97f23d
-ms.sourcegitcommit: a8c7d995806dcf8eaad35b204e87bde178f28443
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 02/08/2022
-ms.locfileid: "138110896"
+  module: Administer Azure Resources
 ---
+
 # <a name="lab-03c---manage-azure-resources-by-using-azure-powershell"></a>ラボ 03c - Azure PowerShell を使用して Azure リソースを管理する
 # <a name="student-lab-manual"></a>受講生用ラボ マニュアル
 
 ## <a name="lab-scenario"></a>ラボのシナリオ
 
 既にリソースのプロビジョニング、リソース グループに基づく構成に関連する Azure の基本的な管理機能を、Azure portal と Azure Resource Manager テンプレートを使用して確認しました。次は Azure PowerShell を使って同等のタスクを実行します。 Azure PowerShell モジュールのインストールを避けるため、Azure Cloud Shell で使用できる PowerShell 環境を活用します。
+
+                **メモ:** このラボをご自分のペースでクリックして進めることができる、 **[ラボの対話型シミュレーション](https://mslabs.cloudguides.com/guides/AZ-104%20Exam%20Guide%20-%20Microsoft%20Azure%20Administrator%20Exercise%206)** が用意されています。 対話型シミュレーションとホストされたラボの間に若干の違いがある場合がありますが、示されている主要な概念とアイデアは同じです。 
 
 ## <a name="objectives"></a>目標
 
@@ -44,11 +41,11 @@ ms.locfileid: "138110896"
 
 1. **Bash** または **PowerShell** の選択を求めるメッセージが表示されたら、 **[PowerShell]** を選択します。 
 
-    >**注**:**Cloud Shell** の初回起動時に **「ストレージがマウントされていません」** というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、 **「ストレージの作成」** を選択します。 
+    >**注**: **Cloud Shell** の初回起動時に "**ストレージがマウントされていません**" というメッセージが表示された場合は、このラボで使用しているサブスクリプションを選択し、**[ストレージの作成]** を選択します。 
 
-1. メッセージが表示されたら、 **「ストレージの作成」** をクリックし、「Azure Cloud Shell」 ウィンドウが表示されるまで待ちます。 
+1. メッセージが表示されたら、**[ストレージの作成]** をクリックし、[Azure Cloud Shell] ウィンドウが表示されるまで待ちます。 
 
-1. 「Cloud Shell」 ウィンドウの左上隅にあるドロップダウン メニューに **PowerShell** が表示されていることを確認します。
+1. [Cloud Shell] ウィンドウの左上隅にあるドロップダウン メニューに **PowerShell** が表示されていることを確認します。
 
 #### <a name="task-2-create-a-resource-group-and-an-azure-managed-disk-by-using-azure-powershell"></a>タスク 2:Azure PowerShell を使用して、リソース グループと Azure マネージド ディスクを作成する
 
