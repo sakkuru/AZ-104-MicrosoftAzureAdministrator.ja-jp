@@ -2,12 +2,6 @@
 title: オンラインでホスティングされている手順
 permalink: index.html
 layout: home
-ms.openlocfilehash: 1dde36744b9541205d719973757171e13ec37223
-ms.sourcegitcommit: 8a0ced6338608682366fb357c69321ba1aee4ab8
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2021
-ms.locfileid: "139131807"
 ---
 # <a name="content-directory"></a>コンテンツ ディレクトリ
 
